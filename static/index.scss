@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    background: lightcyan;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main__calc {
+    height: auto;
+    width: auto;
+
+
+}
+
+.main__calc__operations {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+
+    &__operators {
+        margin: 5px;
+        padding: 15px 35px;
+        background: gray;
+    }
+    
+}
+
+.main__calc__numbers{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    &__num {
+        margin: 5px;
+        padding: 15px 35px;
+        background: gray;
+    }
+    &__equal{
+        grid-row: 2/5;
+        grid-column: 4/4;
+        display: flex;
+        align-items: center;
+    }
+}
