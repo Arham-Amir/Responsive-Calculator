@@ -15,9 +15,26 @@
 .main__calc {
     height: auto;
     width: auto;
-
-
+    padding: 5px;
+    background: white;
 }
+button{
+    // border: 0;
+}
+.main__calc__display {
+    height: auto;
+    width: auto;
+    margin: 5px;
+    background: white;
+}
+
+.main__calc__display__result {
+    text-align: end;
+    font-size: 1.2em;
+    padding: 15px 35px;
+    background: lightgray;
+}
+
 
 .main__calc__operations {
     display: grid;
@@ -28,21 +45,25 @@
         padding: 15px 35px;
         background: gray;
     }
-    
+
 }
 
-.main__calc__numbers{
+.main__calc__numbers {
     display: grid;
     grid-template-columns: auto auto auto auto;
+
     &__num {
         margin: 5px;
         padding: 15px 35px;
-        background: gray;
+        background: lightgray;
     }
-    &__equal{
+
+    &__equal {
         grid-row: 2/5;
         grid-column: 4/4;
         display: flex;
         align-items: center;
+        background: rgb(75, 75, 198);
+        color: white;
     }
 }
