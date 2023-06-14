@@ -141,7 +141,7 @@ function keyDownInput(event) {
     if (key === 'Backspace') {
         key = 'x'
     }
-    if (key == 'Enter') {
+    if (key === 'Enter') {
         key = '='
     }
     if (key == 'C' || key == 'c') {
