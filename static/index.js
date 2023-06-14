@@ -7,6 +7,7 @@ operator = null
 point = false
 flag = false
 activeOper = null
+first = true
 
 main_calc.addEventListener('click', btnPress);
 function btnPress(event) {
@@ -16,7 +17,7 @@ function btnPress(event) {
     if (input == 'x' && display.innerHTML != "0") {
         if (display.innerHTML.length == 1) {
             display.innerHTML = "0"
-        }else if (display.innerHTML == 'Infinity') {
+        } else if (display.innerHTML == 'Infinity') {
             display.innerHTML = "0"
         }
         else {
@@ -30,13 +31,16 @@ function btnPress(event) {
         point = false
     }
     if (nums.includes(input)) {
-        if (activeOper != null){
-            activeOper.style.color= 'black';
+        if (activeOper != null) {
+            document.getElementsByClassName('main__calc__operations')[0].querySelectorAll('button').forEach(element => {
+                element.style.color = 'black';    
+            });
+                
         }
         if (display.innerHTML == "0") {
             display.innerHTML = input
         }
-        else if (prev == display.innerHTML && flag) {
+        else if (prev == display.innerHTML && flag && first) {
             display.innerHTML = input;
             flag = false
         }
@@ -56,13 +60,16 @@ function btnPress(event) {
             point = true
             activeOper = document.getElementsByClassName(input)[0]
             activeOper.style.color = 'gold'
+            first = false
         }
         else if (input == '=') {
+            first = true
             prev = calc(Number(display.innerHTML), operator);
             display.innerHTML = prev
             operator = null
         }
         else {
+            first = true
             activeOper = document.getElementsByClassName(input)[0]
             activeOper.style.color = 'gold'
             prev = calc(Number(display.innerHTML), operator);
@@ -120,7 +127,7 @@ const body = document.body;
 nightModeBtn.addEventListener('click', toggleNightMode);
 
 function toggleNightMode() {
-  body.classList.toggle('night-mode');
+    body.classList.toggle('night-mode');
 }
 
 
@@ -129,14 +136,17 @@ function toggleNightMode() {
 
 window.addEventListener('keydown', keyDownInput);
 
-function keyDownInput(event){
+function keyDownInput(event) {
     key = event.key;
-    if (key === 'Backspace'){
+    if (key === 'Backspace') {
         key = 'x'
-    } 
-    if (key == 'Enter'){
+    }
+    if (key == 'Enter') {
         key = '='
-    } 
+    }
+    if (key == 'C' || key == 'c') {
+        key = 'C'
+    }
     keyHtml = document.getElementsByClassName(key)[0];
     if (keyHtml) {
         keyHtml.click();
