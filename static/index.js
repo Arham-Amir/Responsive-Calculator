@@ -1,3 +1,13 @@
+const nightModeBtn = document.getElementById('night-mode-btn');
+const body = document.body;
+
+nightModeBtn.addEventListener('click', toggleNightMode);
+
+function toggleNightMode() {
+  body.classList.toggle('night-mode');
+}
+
+
 main_calc = document.querySelectorAll('.main__calc')[0]
 display = document.querySelectorAll('.main__calc__display__result')[0]
 pointbtn = document.querySelectorAll('.main__calc__numbers__point')[0]
@@ -5,30 +15,46 @@ pointbtn = document.querySelectorAll('.main__calc__numbers__point')[0]
 prev = 0
 operator = null
 point = false
+flag = false
+activeOper = null
 
 main_calc.addEventListener('click', btnPress);
 function btnPress(event) {
     operators = ["+", '-', 'x', '/', '=']
     nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
     input = event.target.innerHTML
+    if (input == 'D' && display.innerHTML != "0") {
+        if (display.innerHTML.length == 1) {
+            display.innerHTML = "0"
+        }else if (display.innerHTML == 'Infinity') {
+            display.innerHTML = "0"
+        }
+        else {
+            display.innerHTML = display.innerHTML.slice(0, display.innerHTML.length - 1)
+        }
+    }
     if (input == 'C') {
         display.innerHTML = "0";
         prev = 0
         operator = null
+        point = false
     }
     if (nums.includes(input)) {
+        if (activeOper != null){
+            activeOper.style.color= 'black';
+        }
         if (display.innerHTML == "0") {
             display.innerHTML = input
         }
-        else if (prev == display.innerHTML) {
+        else if (prev == display.innerHTML && flag) {
             display.innerHTML = input;
+            flag = false
         }
         else {
             if (input == '.') {
                 point = true
                 pointbtn.innerHTML = ""
             }
-            console.log(input);
             display.innerHTML += input
         }
     }
@@ -38,6 +64,8 @@ function btnPress(event) {
             prev = Number(display.innerHTML);
             display.innerHTML = "0"
             point = true
+            activeOper = document.getElementsByClassName(input)[0]
+            activeOper.style.color = 'gold'
         }
         else if (input == '=') {
             prev = calc(Number(display.innerHTML), operator);
@@ -45,25 +73,51 @@ function btnPress(event) {
             operator = null
         }
         else {
+            activeOper = document.getElementsByClassName(input)[0]
+            activeOper.style.color = 'gold'
             prev = calc(Number(display.innerHTML), operator);
-            display.innerHTML = prev
-            operator = input
+            console.log(prev);
+            if (isNaN(prev) || prev === Infinity) {
+            }
+            else {
+                console.log(prev);
+                display.innerHTML = prev
+                operator = input
+            }
         }
         if (point == true) {
             pointbtn.innerHTML = "."
         }
+        flag = true
     }
 
 }
 function calc(curr, oper) {
+    const precision = Math.max(getDecimalPlaces(curr), getDecimalPlaces(prev));
     switch (oper) {
         case '+':
-            return (prev + curr).toFixed(2)
+            return Number((prev + curr).toFixed(precision));
         case '-':
-            return (prev - curr).toFixed(2)
+            return Number((prev - curr).toFixed(precision));
         case 'x':
-            return (prev * curr).toFixed(2)
+            return Number((prev * curr).toFixed(precision));
         case '/':
-            return (prev / curr).toFixed(2)
+            if (curr == 0) { // Division by zero
+                alert("Division by zero is not allowed.");
+                return Infinity;
+            }
+            if (precision == 0) {
+                return Number((prev / curr).toFixed(2));
+            }
+            return Number((prev / curr).toFixed(precision));
     }
+}
+
+
+function getDecimalPlaces(num) {
+    if (Number.isInteger(num)) {
+        return 0;
+    }
+    const decimalPart = String(num).split('.')[1];
+    return decimalPart ? decimalPart.length : 0;
 }

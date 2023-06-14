@@ -4,7 +4,7 @@
 }
 
 .main {
-    background: lightcyan;
+    // background: lightcyan;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -15,12 +15,15 @@
 .main__calc {
     height: auto;
     width: auto;
-    padding: 5px;
-    background: white;
+    padding: 20px 10px 10px 10px;
+    background: lightcyan;
+    border: 2px solid grey;
 }
-button{
+
+button {
     // border: 0;
 }
+
 .main__calc__display {
     height: auto;
     width: auto;
@@ -66,4 +69,117 @@ button{
         background: rgb(75, 75, 198);
         color: white;
     }
+}
+
+body.night-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.night-mode-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+    font-size: 24px;
+}
+
+
+
+@media (max-width: 480px) {
+    .main__calc {
+        padding: 10px;
+    }
+
+    .main__calc__display__result {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .main__calc__operations__operators {
+        padding: 10px 20px;
+    }
+
+    .main__calc__numbers__num {
+        padding: 10px 20px;
+    }
+
+    .main__calc__numbers__point {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 320px) {
+    .main__calc {
+        padding: 10px;
+    }
+
+    .main__calc__display__result {
+        padding: 10px 16px;
+        font-size: 0.8em;
+    }
+
+    .main__calc__operations__operators {
+        padding: 10px 16px;
+    }
+
+    .main__calc__numbers__num {
+        padding: 10px 16px;
+    }
+
+    .main__calc__numbers__point {
+        padding: 10px 16px;
+    }
+}
+
+
+/* Your existing CSS code */
+
+/* Night mode styles */
+body.night-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.night-mode .main__calc {
+    background-color: #1c1c1c;
+    border-color: #444444;
+
+    &__display__result {
+        background-color: #2b2b2b;
+        color: #ffffff;
+    }
+
+    &__operations__operators {
+        background-color: #444444;
+        color: #ffffff;
+    }
+
+    &__numbers__num {
+        background-color: #2b2b2b;
+        color: #ffffff;
+    }
+
+    &__numbers__equal {
+        background-color: #4b4bcc;
+        color: #ffffff;
+    }
+}
+
+#night-mode-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000000;
+    font-size: 24px;
+}
+
+body.night-mode #night-mode-btn {
+    color: white;
 }
