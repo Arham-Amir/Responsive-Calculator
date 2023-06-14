@@ -1,13 +1,3 @@
-const nightModeBtn = document.getElementById('night-mode-btn');
-const body = document.body;
-
-nightModeBtn.addEventListener('click', toggleNightMode);
-
-function toggleNightMode() {
-  body.classList.toggle('night-mode');
-}
-
-
 main_calc = document.querySelectorAll('.main__calc')[0]
 display = document.querySelectorAll('.main__calc__display__result')[0]
 pointbtn = document.querySelectorAll('.main__calc__numbers__point')[0]
@@ -20,10 +10,10 @@ activeOper = null
 
 main_calc.addEventListener('click', btnPress);
 function btnPress(event) {
-    operators = ["+", '-', 'x', '/', '=']
+    operators = ["+", '-', '*', '/', '=']
     nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
     input = event.target.innerHTML
-    if (input == 'D' && display.innerHTML != "0") {
+    if (input == 'x' && display.innerHTML != "0") {
         if (display.innerHTML.length == 1) {
             display.innerHTML = "0"
         }else if (display.innerHTML == 'Infinity') {
@@ -76,11 +66,9 @@ function btnPress(event) {
             activeOper = document.getElementsByClassName(input)[0]
             activeOper.style.color = 'gold'
             prev = calc(Number(display.innerHTML), operator);
-            console.log(prev);
             if (isNaN(prev) || prev === Infinity) {
             }
             else {
-                console.log(prev);
                 display.innerHTML = prev
                 operator = input
             }
@@ -99,7 +87,7 @@ function calc(curr, oper) {
             return Number((prev + curr).toFixed(precision));
         case '-':
             return Number((prev - curr).toFixed(precision));
-        case 'x':
+        case '*':
             return Number((prev * curr).toFixed(precision));
         case '/':
             if (curr == 0) { // Division by zero
@@ -120,4 +108,37 @@ function getDecimalPlaces(num) {
     }
     const decimalPart = String(num).split('.')[1];
     return decimalPart ? decimalPart.length : 0;
+}
+
+
+
+//      N i g ht   M o d e  
+
+const nightModeBtn = document.getElementById('night-mode-btn');
+const body = document.body;
+
+nightModeBtn.addEventListener('click', toggleNightMode);
+
+function toggleNightMode() {
+  body.classList.toggle('night-mode');
+}
+
+
+
+//      K e y b o a r d      I n p u t
+
+window.addEventListener('keydown', keyDownInput);
+
+function keyDownInput(event){
+    key = event.key;
+    if (key === 'Backspace'){
+        key = 'x'
+    } 
+    if (key == 'Enter'){
+        key = '='
+    } 
+    keyHtml = document.getElementsByClassName(key)[0];
+    if (keyHtml) {
+        keyHtml.click();
+    }
 }
