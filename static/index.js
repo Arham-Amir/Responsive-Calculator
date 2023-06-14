@@ -33,9 +33,9 @@ function btnPress(event) {
     if (nums.includes(input)) {
         if (activeOper != null) {
             document.getElementsByClassName('main__calc__operations')[0].querySelectorAll('button').forEach(element => {
-                element.style.color = 'black';    
+                element.style.color = 'black';
             });
-                
+
         }
         if (display.innerHTML == "0") {
             display.innerHTML = input
@@ -120,16 +120,34 @@ function getDecimalPlaces(num) {
 
 
 //      N i g ht   M o d e  
+let state;
+const body = document.body;
+
+// Retrieve state from local storage
+state = localStorage.getItem("state");
+
+// Set initial class based on the state
+if (state === 'night') {
+    body.classList.add('night-mode');
+} else {
+    body.classList.remove('night-mode');
+}
 
 const nightModeBtn = document.getElementById('night-mode-btn');
-const body = document.body;
 
 nightModeBtn.addEventListener('click', toggleNightMode);
 
 function toggleNightMode() {
     body.classList.toggle('night-mode');
-}
 
+    if (state === 'day') {
+        state = 'night';
+    } else {
+        state = 'day';
+    }
+    localStorage.setItem("state", state);
+    console.log(localStorage.getItem("state"));
+}
 
 
 //      K e y b o a r d      I n p u t
